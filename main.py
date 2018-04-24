@@ -1,12 +1,12 @@
 import numpy as np
 from neurarl_network import NeuralNetwork
 from dataset.mnist import load_mnist
-from deal_data import make_minibatch
+from utils import make_minibatch
 
 def main():
     (train_x, train_t), (test_x, test_t) = load_mnist(flatten=True, normalize=True, one_hot_label=True)
 
-    network = NeuralNetwork(784, 100, 10)
+    network = NeuralNetwork(784, 50, 10)
 
     train_data_size = train_x.shape[0]
     batch_size = 100
@@ -25,7 +25,7 @@ def main():
 
             loss = network.calc_loss(batch_x, batch_t)
 
-            print('train {}: loss = {}'.format(i, loss))
+            # print('train {}: loss = {}'.format(i, loss))
         
         # testing
         train_accuracy = network.calc_accuracy(train_x, train_t)

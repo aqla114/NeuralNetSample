@@ -56,7 +56,7 @@ def _numerical_gradient_no_batch(f, x):
         x[idx] = float(tmp_val) + h
         fxh1 = f(x) # f(x+h)
 
-        x[idx] = tmp_val - h
+        x[idx] = float(tmp_val) - h
         fxh2 = f(x) # f(x-h)
         grad[idx] = (fxh1 - fxh2) / (2*h)
 

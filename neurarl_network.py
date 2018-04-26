@@ -1,6 +1,6 @@
 import numpy as np
 from functions import sigmoid, sigmoid_grad, softmax, cross_entropy_error, numerical_gradient
-from layers import Relu, Affine, SoftmaxWithLoss
+from layers import Relu, Tanh, Sigmoid, Affine, SoftmaxWithCrossEntropyError
 from collections import OrderedDict
 
 class NeuralNetwork():
@@ -15,9 +15,9 @@ class NeuralNetwork():
 
         self.layers = OrderedDict()
         self.layers['Affine1'] = Affine(self.weight['W1'], self.weight['b1'])
-        self.layers['Relu1'] = Relu()
+        self.layers['Sigmoid1'] = Sigmoid()
         self.layers['Affine2'] = Affine(self.weight['W2'], self.weight['b2'])
-        self.last_layer = SoftmaxWithLoss()
+        self.last_layer = SoftmaxWithCrossEntropyError()
     
     def predict(self, x: np.ndarray) -> np.ndarray:
         # W1, W2 = self.weight['W1'], self.weight['W2']

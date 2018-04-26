@@ -1,5 +1,5 @@
 import numpy as np
-from functions import softmax, cross_entropy_error
+from functions import sigmoid, softmax, cross_entropy_error
 
 class Relu:
     def __init__(self):
@@ -18,6 +18,35 @@ class Relu:
 
         return dx
 
+class Tanh:
+    def __init__(self):
+        self.out = None
+    
+    def forward(self, x):
+        out = np.tanh(x)
+        self.out = out
+        return out
+    
+    def backward(self, dout):
+        dx = (1.0 - self.out * self.out) * dout
+
+        return dx
+
+class Sigmoid:
+    def __init__(self):
+        self.out = None
+
+    def forward(self, x):
+        out = sigmoid(x)
+        self.out = out
+        return out
+
+    def backward(self, dout):
+        dx = dout * (1.0 - self.out) * self.out
+
+        return dx
+
+
 class Affine:
     def __init__(self, W, b):
         self.W =W
@@ -30,9 +59,6 @@ class Affine:
         self.db = None
 
     def forward(self, x):
-        # テンソル対応
-        # self.original_x_shape = x.shape
-        # x = x.reshape(x.shape[0], -1)
         self.x = x
         out = np.dot(self.x, self.W) + self.b
 
@@ -43,10 +69,9 @@ class Affine:
         self.dW = np.dot(self.x.T, dout)
         self.db = np.sum(dout, axis=0)
 
-        # dx = dx.reshape(*self.original_x_shape)  # 入力データの形状に戻す（テンソル対応）
         return dx
 
-class SoftmaxWithLoss:
+class SoftmaxWithCrossEntropyError:
     def __init__(self):
         self.loss = None
         self.y = None

@@ -2,11 +2,15 @@ import numpy as np
 from neurarl_network import NeuralNetwork
 from dataset.mnist import load_mnist
 from utils import make_minibatch
+from layers import Affine, Relu
 
 def main():
     (train_x, train_t), (test_x, test_t) = load_mnist(flatten=True, normalize=True, one_hot_label=True)
 
-    network = NeuralNetwork(784, 50, 10)
+    network = NeuralNetwork()
+    network.append('Affine1', Affine, 784, 50)
+    network.append('Relu1', Relu)
+    network.append('Affine2', Affine, 40, 10)
 
     train_data_size = train_x.shape[0]
     batch_size = 100

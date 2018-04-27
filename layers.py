@@ -48,9 +48,9 @@ class Sigmoid:
 
 
 class Affine:
-    def __init__(self, W, b):
-        self.W =W
-        self.b = b
+    def __init__(self, input_size, output_size, weight_init_std=0.01):
+        self.W = weight_init_std * np.random.randn(input_size, output_size)
+        self.b = np.zeros(output_size)
 
         self.x = None
         self.original_x_shape = None

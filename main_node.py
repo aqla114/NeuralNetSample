@@ -54,10 +54,6 @@ def main():
             train_accuracy += acc
             network.backward()
 
-            # print('train {}: loss = {}'.format(i, loss))
-        
-        train_accuracy /= batch_size * train_num_per_epoc
-
         network = SoftMaxWithCrossEntropyError(
             Add(
                 Mul(
@@ -78,6 +74,7 @@ def main():
         )
 
         # testing
+        train_accuracy /= batch_size * train_num_per_epoc
         _, test_accuracy = network.forward()
         test_accuracy /= test_x.shape[0]
         print('epoc {} : train_accuracy = {}, test_accuracy = {}'.format(epoc, train_accuracy, test_accuracy))
